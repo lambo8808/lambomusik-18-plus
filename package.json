@@ -4,7 +4,7 @@
   "description": "Music application with Vercel Analytics",
   "type": "module",
   "scripts": {
-    "build": "echo 'Build complete'",
+    "build": "vite build",
     "test": "echo 'No tests specified'"
   },
   "dependencies": {
@@ -12,5 +12,8 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "vite": "^8.2.1"
+  }
 }
