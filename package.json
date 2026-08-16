@@ -1,0 +1,16 @@
+{
+  "name": "lambomusik-18-plus-v3rm",
+  "version": "1.0.0",
+  "description": "Music application with Vercel Analytics",
+  "type": "module",
+  "scripts": {
+    "build": "echo 'Build complete'",
+    "test": "echo 'No tests specified'"
+  },
+  "dependencies": {
+    "@vercel/analytics": "^1.1.1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
