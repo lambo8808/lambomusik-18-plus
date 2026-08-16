@@ -2,7 +2,13 @@ import { inject } from '@vercel/analytics';
 import { someUtil } from './utils.js';
 
 // Initialize Vercel Web Analytics
-inject();
+// This will automatically track page views and custom events
+// In development mode, events are logged to console
+// In production mode, events are sent to Vercel Analytics
+inject({
+    mode: 'auto', // Automatically detect environment
+    debug: false // Set to true to enable debug logging
+});
 
 class ApiClient {
     constructor() {
