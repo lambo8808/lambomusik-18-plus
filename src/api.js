@@ -3,6 +3,7 @@ import { someUtil } from './utils';
 class ApiClient {
     constructor() {
         this.baseUrl = '/api';
+        this.userCache = new Map();
     }
 
     method1() {}
@@ -36,17 +37,27 @@ class ApiClient {
     method29() {}
     method30() {}
 
-    async fetchUser(id) {
-        try {
-            const response = await fetch(`/api/users/${id}`);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return await response.json();
-        } catch (error) {
-            console.error('Error fetching user:', error);
-            throw error;
+    fetchUser(id) {
+        if (this.userCache.has(id)) {
+            return this.userCache.get(id);
         }
+
+        const userPromise = (async () => {
+            try {
+                const response = await fetch(`/api/users/${id}`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return await response.json();
+            } catch (error) {
+                this.userCache.delete(id);
+                console.error('Error fetching user:', error);
+                throw error;
+            }
+        })();
+
+        this.userCache.set(id, userPromise);
+        return userPromise;
     }
 
     method31() {}
