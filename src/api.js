@@ -1,4 +1,8 @@
+import { inject } from '@vercel/analytics';
 import { someUtil } from './utils';
+
+// Initialize Vercel Web Analytics
+inject();
 
 class ApiClient {
     constructor() {
