@@ -1,5 +1,3 @@
-import { someUtil } from './utils';
-
 class ApiClient {
     constructor() {
         this.baseUrl = '/api';
