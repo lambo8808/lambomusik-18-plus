@@ -1,5 +1,5 @@
 import { inject } from '@vercel/analytics';
-import { someUtil } from './utils';
+import { someUtil } from './utils.js';
 
 // Initialize Vercel Web Analytics
 inject();
