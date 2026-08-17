@@ -1,8 +1,7 @@
-import { inject } from '@vercel/analytics';
 import ApiClient from './api.js';
 
-// Inject Vercel Analytics
-inject();
+// Inject Vercel Analytics asynchronously to improve initial load performance
+import('@vercel/analytics').then(({ inject }) => inject());
 
 // Initialize the application
 const apiClient = new ApiClient();
