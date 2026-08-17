@@ -1,7 +1,4 @@
 {
   "buildCommand": "npm run build",
-  "outputDirectory": ".",
-  "analytics": {
-    "enable": true
-  }
+  "outputDirectory": "."
 }
