@@ -1,7 +1,10 @@
 class ApiClient {
     constructor() {
         this.baseUrl = '/api';
+        // ⚡ Bolt: Use a bounded Map for LRU caching to prevent memory leaks
+        // over long sessions while keeping frequently accessed users fast.
         this.userCache = new Map();
+        this.maxCacheSize = 100;
     }
 
     method1() {}
@@ -46,7 +49,11 @@ class ApiClient {
         }
 
         if (this.userCache.has(idStr)) {
-            return this.userCache.get(idStr);
+            // ⚡ Bolt: Move accessed item to the end (most recently used)
+            const cachedPromise = this.userCache.get(idStr);
+            this.userCache.delete(idStr);
+            this.userCache.set(idStr, cachedPromise);
+            return cachedPromise;
         }
 
         const userPromise = (async () => {
@@ -64,6 +71,13 @@ class ApiClient {
         })();
 
         this.userCache.set(idStr, userPromise);
+
+        // ⚡ Bolt: Enforce cache limit by removing oldest (first) item
+        if (this.userCache.size > this.maxCacheSize) {
+            const oldestKey = this.userCache.keys().next().value;
+            this.userCache.delete(oldestKey);
+        }
+
         return userPromise;
     }
 
