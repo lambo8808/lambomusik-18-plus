@@ -1,3 +1,6 @@
+// Cache the regular expression to avoid repeated instantiation/compilation
+const VALID_ID_REGEX = /^[a-zA-Z0-9_-]+$/;
+
 class ApiClient {
     constructor() {
         this.baseUrl = '/api';
@@ -41,7 +44,7 @@ class ApiClient {
         }
 
         const idStr = String(id);
-        if (!/^[a-zA-Z0-9_-]+$/.test(idStr)) {
+        if (!VALID_ID_REGEX.test(idStr)) {
             return Promise.reject(new Error('Invalid User ID format'));
         }
 
