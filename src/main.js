@@ -12,9 +12,11 @@ console.log('Application initialized with Vercel Analytics');
 document.addEventListener('DOMContentLoaded', () => {
     const appElement = document.getElementById('app');
     if (appElement) {
-        appElement.innerHTML = `
-            <h1>LamboMusik 18+</h1>
-            <p>Application ready with analytics tracking enabled.</p>
-        `;
+        const h1 = document.createElement('h1');
+        h1.textContent = 'LamboMusik 18+';
+        const p = document.createElement('p');
+        p.textContent = 'Application ready with analytics tracking enabled.';
+        appElement.appendChild(h1);
+        appElement.appendChild(p);
     }
 });
