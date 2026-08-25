@@ -1,7 +1,44 @@
+class LRUCache {
+    constructor(maxSize) {
+        this.maxSize = maxSize;
+        this.cache = new Map();
+    }
+
+    get(key) {
+        if (!this.cache.has(key)) return undefined;
+        const val = this.cache.get(key);
+        this.cache.delete(key);
+        this.cache.set(key, val);
+        return val;
+    }
+
+    set(key, value) {
+        if (this.cache.has(key)) {
+            this.cache.delete(key);
+        }
+        this.cache.set(key, value);
+        if (this.cache.size > this.maxSize) {
+            this.cache.delete(this.cache.keys().next().value);
+        }
+    }
+
+    has(key) {
+        return this.cache.has(key);
+    }
+
+    delete(key) {
+        return this.cache.delete(key);
+    }
+
+    get size() {
+        return this.cache.size;
+    }
+}
+
 class ApiClient {
     constructor() {
         this.baseUrl = '/api';
-        this.userCache = new Map();
+        this.userCache = new LRUCache(1000);
     }
 
     method1() {}
