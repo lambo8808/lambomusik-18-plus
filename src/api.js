@@ -58,7 +58,7 @@ class ApiClient {
                 return await response.json();
             } catch (error) {
                 this.userCache.delete(idStr);
-                console.error('Error fetching user:', error);
+                console.error('Error fetching user:', error.message || 'Unknown error');
                 throw error;
             }
         })();
