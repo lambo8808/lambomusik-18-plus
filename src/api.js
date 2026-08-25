@@ -2,6 +2,7 @@ class ApiClient {
     constructor() {
         this.baseUrl = '/api';
         this.userCache = new Map();
+        this.maxCacheSize = 1000;
     }
 
     method1() {}
@@ -46,7 +47,10 @@ class ApiClient {
         }
 
         if (this.userCache.has(idStr)) {
-            return this.userCache.get(idStr);
+            const cachedPromise = this.userCache.get(idStr);
+            this.userCache.delete(idStr);
+            this.userCache.set(idStr, cachedPromise);
+            return cachedPromise;
         }
 
         const userPromise = (async () => {
@@ -64,6 +68,10 @@ class ApiClient {
         })();
 
         this.userCache.set(idStr, userPromise);
+        if (this.userCache.size > this.maxCacheSize) {
+            const oldestKey = this.userCache.keys().next().value;
+            this.userCache.delete(oldestKey);
+        }
         return userPromise;
     }
 
