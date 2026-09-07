@@ -8,10 +8,12 @@
     "test": "echo 'No tests specified'"
   },
   "dependencies": {
-    "@vercel/analytics": "^1.1.1",
-    "vite": "^8.2.1"
+    "@vercel/analytics": "^1.1.1"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "vite": "^8.2.1"
+  }
 }
