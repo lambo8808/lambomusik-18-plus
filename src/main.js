@@ -1,7 +1,14 @@
 import ApiClient from './api.js';
 
-// Inject Vercel Analytics asynchronously to improve initial load performance
-import('@vercel/analytics').then(({ inject }) => inject());
+// ⚡ Bolt: Defer non-critical analytics loading to improve Time to Interactive (TTI).
+// Using requestIdleCallback ensures analytics tracking is initialized when the main thread is idle,
+// preventing it from blocking critical rendering path.
+const injectAnalytics = () => import('@vercel/analytics').then(({ inject }) => inject());
+if ('requestIdleCallback' in window) {
+    requestIdleCallback(injectAnalytics);
+} else {
+    setTimeout(injectAnalytics, 1);
+}
 
 // Initialize the application
 const apiClient = new ApiClient();
