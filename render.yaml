@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: lambomusik-18-plus-web
+    env: static
+    buildCommand: npm install --include=dev && npm run build
+    staticPublishPath: dist
